@@ -1,0 +1,22 @@
+<div class="flip-card">
+  <div class="flip-card-inner" (click)="onCardClicked($event)">
+
+    <div class="flip-card-face flip-card-front">
+      <div class="flip-card-content">
+        <div class="close"></div>
+        <div class="name">{{card.title}}</div>
+      </div>
+    </div>
+
+    <div class="flip-card-face flip-card-back">
+      <div class="flip-card-content">
+        <div class="close"></div>
+        <div class="name">{{card.title}}</div>
+        <div class="description">
+          {{card.description}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

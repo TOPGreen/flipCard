@@ -1,0 +1,14 @@
+<form class="form" [formGroup]="form" (submit)="onSubmit()">
+  <div class="form-title">Добавить карточку</div>
+  <div class="form-content">
+    <div class="row">
+      <input formControlName='title' type="text" placeholder="Название">
+    </div>
+    <div class="row">
+      <textarea formControlName='description' placeholder="Описание"></textarea>
+    </div>
+    <div class="row row_submit">
+      <input type="submit" class="button" value="Добавить карточку">
+    </div>
+  </div>
+</form>
