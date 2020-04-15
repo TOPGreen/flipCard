@@ -10,6 +10,4 @@ export interface ICardsApiService {
   add(entity: Card): Observable<void>;
 
   delete(id: number): Observable<void>;
-
-  editByid(id: number, entity: Card): Observable<void>;
 }

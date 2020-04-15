@@ -18,10 +18,6 @@ export class CardsApiMockService implements ICardsApiService{
     return undefined;
   }
 
-  editByid(id: number, entity: Card): Observable<void> {
-    return undefined;
-  }
-
   getAll(): Observable<Card[]> {
     return undefined;
   }

@@ -7,23 +7,7 @@ import {Card} from '../interfaces/Card';
 })
 export class CardsService {
 
-  private cards: Card[] = [
-    {
-      id: 0,
-      title: '0-qwe',
-      description: '0-hvljbkcgvhjgfghvj'
-    },
-    {
-      id: 1,
-      title: '1-qwe',
-      description: '1-hvljbkcgvhjgfghvj'
-    },
-    {
-      id: 2,
-      title: '2-qwe',
-      description: '2-hvljbkcgvhjgfghvj'
-    },
-  ];
+  private cards: Card[] = [];
 
 
   constructor(@Inject(ICardsApiServiceToken)
@@ -35,8 +19,27 @@ export class CardsService {
   }
 
   addCard(card: Card) {
-    // this.cardsApiService.add(card).subscribe(() => {
-    this.cards.push(card);
-    // });
+    this.cardsApiService.add(card).subscribe(() => {
+      this.cards.push(card);
+    });
+  }
+
+  iniitalize() {
+    this.cardsApiService.getAll().subscribe(data => {
+      this.setCards(data);
+    });
+  }
+
+  setCards(cards: Card[]) {
+    this.cards = cards;
+  }
+
+
+  deleteCard(index) {
+    const id = this.cards[index].id;
+
+    this.cardsApiService.delete(id).subscribe(() => {
+      this.cards.splice(index, 1);
+    });
   }
 }

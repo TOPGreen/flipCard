@@ -9,6 +9,9 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {MainComponent} from './components/main/main.component';
 import {ICardsApiServiceToken} from './interfaces/ICardsApi';
 import {CardsApiMockService} from './services/cards-api-mock.service';
+import {HttpClientModule} from '@angular/common/http';
+import {CardsApiService} from './services/cards-api.service';
+
 
 @NgModule({
   declarations: [
@@ -20,11 +23,12 @@ import {CardsApiMockService} from './services/cards-api-mock.service';
   ],
   imports: [
     ReactiveFormsModule,
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [,
-    {provide: ICardsApiServiceToken, useClass: CardsApiMockService},
-    // {provide: ICardsApiServiceToken, useClass: CardsApiService},
+    // {provide: ICardsApiServiceToken, useClass: CardsApiMockService},
+    {provide: ICardsApiServiceToken, useClass: CardsApiService},
   ],
 
   bootstrap: [AppComponent]

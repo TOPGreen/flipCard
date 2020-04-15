@@ -1,3 +1,6 @@
 <div class="list">
-  <app-card *ngFor="let card of cards" [card]="card"></app-card>
+  <app-card *ngFor="let card of cards; let index = index" [card]="card"
+            [isFlipped]="flippedCards[card.title+'|'+card.description]"
+            (delete)="onCardDelete(index)"
+            (flip)="onCardFlip(card)"></app-card>
 </div>
