@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Card} from '../../interfaces/Card';
 import {debounce} from '../../helpers/debounce';
 import {CardListStateService} from '../../services/card-list-state.service';
@@ -8,13 +8,16 @@ import {CardListStateService} from '../../services/card-list-state.service';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit, AfterViewInit {
+export class CardComponent implements OnInit, AfterViewInit {//OnChanges {
 
   @Input()
   card: Card;
 
   @Input()
   isFlipped: boolean;
+
+  @Input()
+  isAllFlipped: boolean;
 
   @Output()
   delete = new EventEmitter<void>();
@@ -32,6 +35,9 @@ export class CardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.cardClick = debounce(this.onCardClicked, 1000);
     this.toggleElement = this.elementRef.nativeElement.querySelector('.flip-card-inner');
+    if (this.isFlipped) {
+      this.toggleElement.classList.toggle('is-flipped');
+    }
   }
 
   onCardClicked() {
@@ -44,9 +50,13 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.delete.emit();
   }
 
-  ngAfterViewInit() {
-    if (this.isFlipped) {
-      this.toggleElement.classList.toggle('is-flipped');;
+  ngAfterViewInit(): void {
+    if (!this.isFlipped && this.isAllFlipped) {
+      setTimeout(() => {
+        if (!this.toggleElement.classList.contains('is-flipped')) {
+          this.cardClick();
+        }
+      }, 100);
     }
   }
 }

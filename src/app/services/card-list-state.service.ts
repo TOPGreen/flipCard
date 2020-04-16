@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
 import {Card} from '../interfaces/Card';
+import {CardsService} from './cards.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class CardListStateService {
 
   private flippedCards = {};
 
-  constructor() {
+  constructor(private cardsService: CardsService) {
   }
 
   get getFlippedCards() {
@@ -17,7 +17,7 @@ export class CardListStateService {
   }
 
   flip(card: Card) {
-    const key = `${card.title}|${card.description}`;
+    const key = this.getKey(card);
     if (this.flippedCards[key]) {
       this.flippedCards[key] = false;
     } else {
@@ -36,13 +36,23 @@ export class CardListStateService {
   }
 
   delete(card: Card) {
-    const key = `${card.title}|${card.description}`;
-    delete this.flippedCards[key];
+    delete this.flippedCards[this.getKey(card)];
     this.saveState();
   }
 
-  saveState(){
+  saveState() {
     localStorage.setItem('flippedCards', JSON.stringify(this.flippedCards));
+  }
+
+  flipAll() {
+    for (const card of this.cardsService.getCards) {
+      this.flippedCards[this.getKey(card)] = true;
+    }
+    this.saveState();
+  }
+
+  private getKey(card: Card) {
+    return `${card.title}|${card.description}`;
   }
 
 }

@@ -8,13 +8,14 @@ import {CardListStateService} from '../../services/card-list-state.service';
   templateUrl: './card-list.component.html',
   styleUrls: ['./card-list.component.css']
 })
-export class CardListComponent implements OnInit, OnDestroy {
+export class CardListComponent implements OnInit {
 
   get cards(): Card[] {
     return this.cardsService.getCards;
   }
 
   flippedCards = {};
+  isAllFlippedBtnClicked = false;
 
   constructor(private cardsService: CardsService,
               private cardListStateService: CardListStateService) {
@@ -35,6 +36,12 @@ export class CardListComponent implements OnInit, OnDestroy {
 
   onCardFlip(card: Card) {
     this.cardListStateService.flip(card);
+  }
+
+  flipAll() {
+    // this.cardListStateService.flipAll();
+    this.isAllFlippedBtnClicked = true;
+    this.ngOnInit();
   }
 
 }

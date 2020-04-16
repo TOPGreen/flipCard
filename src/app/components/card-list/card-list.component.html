@@ -1,6 +1,9 @@
+<input type="button" (click)="flipAll()" class="button" value="Перевернуть все карточки">
+<br>
 <div class="list">
   <app-card *ngFor="let card of cards; let index = index" [card]="card"
             [isFlipped]="flippedCards[card.title+'|'+card.description]"
+            [isAllFlipped]="isAllFlippedBtnClicked"
             (delete)="onCardDelete(index)"
             (flip)="onCardFlip(card)"></app-card>
 </div>
